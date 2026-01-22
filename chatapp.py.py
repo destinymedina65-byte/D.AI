@@ -34,7 +34,7 @@ if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
         {
             "role": "system",
-            "content": "You are MovieBot, a funny, friendly AI who loves movies."
+            "content": "You are DaiChai, a goofy AI who loves movies."
         }
     ]
 
@@ -111,6 +111,7 @@ for msg in st.session_state.chat_history[1:]:
             f"</div>",
             unsafe_allow_html=True
         )
+
 
 
 
