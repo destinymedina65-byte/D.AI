@@ -22,7 +22,7 @@ if not st.session_state.authenticated:
 # APP SETUP
 # --------------------
 client = OpenAI()
-st.title("🎬 MovieBot")
+st.title("DaiChai")
 
 MODEL = "gpt-5-mini"  # fast + cheaper
 MAX_MESSAGES = 10     # cost control
@@ -111,5 +111,6 @@ for msg in st.session_state.chat_history[1:]:
             f"</div>",
             unsafe_allow_html=True
         )
+
 
 
