@@ -1,9 +1,9 @@
 import streamlit as st
-import openai
+from openai import OpenAI
 
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+client = OpenAI()
 
-st.title("🎬 MovieBot")
+st.title("💬 MovieBot")
 
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
@@ -13,25 +13,23 @@ if "chat_history" not in st.session_state:
         }
     ]
 
-for msg in st.session_state.chat_history[1:]:
-    st.chat_message(msg["role"]).write(msg["content"])
-
-user_input = st.chat_input("Ask MovieBot something...")
+user_input = st.text_input("You:")
 
 if user_input:
     st.session_state.chat_history.append(
         {"role": "user", "content": user_input}
     )
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-5-mini",
         messages=st.session_state.chat_history
     )
 
-    reply = response["choices"][0]["message"]["content"]
+    reply = response.choices[0].message.content
 
     st.session_state.chat_history.append(
         {"role": "assistant", "content": reply}
     )
 
-    st.chat_message("assistant").write(reply)
+for msg in st.session_state.chat_history[1:]:
+    st.write(f"**{msg['role'].capitalize()}:** {msg['content']}")
